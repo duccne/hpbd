@@ -81,23 +81,43 @@ input {
     font-size: 16px; /* Chống phóng to tự động trên iPhone */
 }
 
-/* --- Hộp quà --- */
-.gift-box {
-    width: 120px;
-    height: 100px;
-    background: var(--gift-color);
-    position: relative;
-    cursor: pointer;
-    animation: shake 1.2s infinite;
+/* Nơ trên đỉnh hộp quà */
+.gift-bow {
+    position: absolute;
+    top: -50px; /* Nằm trên nắp */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 20px;
+    z-index: 2;
 }
 
-.gift-lid {
-    width: 140px;
-    height: 30px;
-    background: var(--gift-color);
+.gift-bow::before, .gift-bow::after {
+    content: '';
     position: absolute;
-    top: -30px;
-    left: -10px;
+    width: 25px;
+    height: 25px;
+    border: 4px solid var(--ribbon-color);
+    border-radius: 50% 50% 0 50%;
+    transform: rotate(45deg);
+    top: -10px;
+}
+
+.gift-bow::after {
+    left: 20px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+}
+
+/* Ruy băng ngang trên nắp hộp */
+.gift-lid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 47.5px; /* Khớp với ruy băng dọc bên dưới */
+    width: 25px;
+    height: 100%;
+    background: var(--ribbon-color);
 }
 
 /* Lời chúc bay quanh */
