@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi Chị Yêu ❤️</title>
+    <title>Món quà bí mật dành cho Chị ❤️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="card">
-        <img src="https://via.placeholder.com/150" alt="Chị yêu" class="profile-pic">
-        
-        <h1>Happy Birthday! 🎂</h1>
-        <div class="message-box">
-            <p id="message">Chúc mừng sinh nhật người con gái đặc biệt nhất trong lòng em! ❤️</p>
+    <div id="gift-container">
+        <div class="gift-box" onclick="showPasswordInput()">
+            <div class="gift-lid"></div>
+            <div class="gift-body"></div>
+            <div class="gift-bow"></div>
         </div>
-        
-        <button onclick="nextMessage()">Nhấn để xem lời em nói</button>
+        <p class="hint">Chị ơi, có một món quà đang chờ này... <br> (Bấm vào hộp quà nhé!)</p>
+    </div>
+
+    <div id="password-screen" class="hidden">
+        <div class="auth-box">
+            <h3>Nhập mật mã để mở quà</h3>
+            <p>(Gợi ý: Ngày kỷ niệm của chúng mình hoặc tên em viết liền không dấu)</p>
+            <input type="password" id="password-input" placeholder="Mật mã là gì nhỉ?">
+            <button onclick="checkPassword()">Mở Quà Ngay!</button>
+            <p id="error-msg" class="hidden">Sai rồi nhé, thử lại xem nào! 😜</p>
+        </div>
+    </div>
+
+    <div id="final-screen" class="hidden">
+        <canvas id="fireworks-canvas"></canvas>
+        <div class="content">
+            <img src="https://via.placeholder.com/150" alt="Chị yêu" class="final-pic">
+            <h1 class="main-title">HAPPY BIRTHDAY CHỊ YÊU! 🎂</h1>
+        </div>
     </div>
 
     <script src="script.js"></script>
