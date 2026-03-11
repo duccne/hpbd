@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Sinh Nhật Em!</title>
+    <title>Chúc Mừng Sinh Nhật Chị Yêu ❤️</title>
     <style>
+        :root {
+            --primary-color: #6a1b9a; /* Màu tím sang trọng */
+            --accent-color: #ff4d4d;
+            --bg-color: #f3e5f5;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -12,99 +18,139 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: #ffe6e6; /* Màu hồng nhạt */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            font-family: 'Segoe UI', Roboto, sans-serif;
             overflow: hidden;
             text-align: center;
         }
 
-        .container {
+        /* Hiệu ứng nền lấp lánh */
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .card {
             z-index: 10;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 80%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(106, 27, 154, 0.2);
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid #ffffff;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            color: #ff4d4d;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        p {
-            color: #555;
-            font-size: 1.2rem;
-            line-height: 1.6;
+        .main-text {
+            color: #444;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            min-height: 80px;
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 27, 154, 0.3);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(255, 77, 77, 0.4);
         }
 
         .heart {
             position: absolute;
-            color: #ff4d4d;
-            font-size: 20px;
-            animation: move 3s linear infinite;
-            opacity: 0;
+            pointer-events: none;
+            animation: float 4s linear infinite;
         }
 
-        @keyframes move {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        button {
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-            background: #ff3333;
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-   <div style="margin-bottom: 20px;">
-    <img src="https://via.placeholder.com/150" 
-         alt="Anh Nguoi Yeu" 
-         style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #ff4d4d; object-fit: cover;">
-</div>
+    <canvas id="canvas"></canvas>
+
+    <div class="card">
+        <div id="icon" style="font-size: 50px; margin-bottom: 10px;">🎁</div>
+        <h1>Chúc Mừng Sinh Nhật Chị Yêu! 🎂</h1>
+        <p id="message" class="main-text">Hôm nay là một ngày đặc biệt, ngày mà một người tuyệt vời như chị xuất hiện. Chúc chị tuổi mới luôn hạnh phúc và rạng rỡ bên em nhé! ❤️</p>
+        <button onclick="nextMessage()">Nhấn để nghe lời em muốn nói</button>
+    </div>
 
     <script>
-        // Tạo hiệu ứng trái tim bay
+        // Hiệu ứng trái tim và hoa rơi
         function createHeart() {
+            const symbols = ['❤️', '✨', '🌸', '💖', '🍀'];
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = '❤️';
+            heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
             document.body.appendChild(heart);
 
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            setTimeout(() => { heart.remove(); }, 4000);
         }
-        setInterval(createHeart, 300);
+        setInterval(createHeart, 400);
 
-        // Thay đổi lời chúc
+        // Danh sách lời chúc xưng hô Chị - Em
         const messages = [
-            "Em là món quà tuyệt vời nhất của anh!",
-            "Chúc công chúa của anh luôn rạng rỡ như ánh mặt trời.",
-            "Yêu em nhiều hơn mỗi ngày!",
-            "Hôm nay em là xinh nhất, không ai bằng đâu!"
+            "Chị là món quà quý giá nhất mà em có được trong đời! 💎",
+            "Dù có thêm bao nhiêu tuổi, trong mắt em chị vẫn luôn là cô gái xinh đẹp nhất. ✨",
+            "Chúc chị tuổi mới thật rực rỡ, công việc suôn sẻ và luôn là chỗ dựa ấm áp cho em nhé! 🌹",
+            "Cảm ơn chị vì đã luôn bao dung và yêu thương một người như em. Yêu chị rất nhiều! ❤️",
+            "Hôm nay chị hãy cứ làm công chúa, còn thế giới cứ để em lo! 👑"
         ];
+
+        const icons = ['🥰', '🌹', '🌟', '👩‍❤️‍💋‍👨', '👸'];
         let index = 0;
-        function changeMessage() {
+
+        function nextMessage() {
             const msgElement = document.getElementById('message');
-            msgElement.innerText = messages[index];
-            index = (index + 1) % messages.length;
+            const iconElement = document.getElementById('icon');
+            
+            // Hiệu ứng chuyển chữ mượt mà
+            msgElement.style.opacity = 0;
+            setTimeout(() => {
+                msgElement.innerText = messages[index];
+                iconElement.innerText = icons[index];
+                msgElement.style.opacity = 1;
+                index = (index + 1) % messages.length;
+            }, 300);
         }
     </script>
 </body>
