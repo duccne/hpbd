@@ -134,8 +134,14 @@ body {
 /* --- HIỆU ỨNG BAY (Z-INDEX THẤP HƠN NÚT BẤM) --- */
 .flower, .heart-fly, .scrolling-photo, .floating-wish {
     position: absolute;
-    pointer-events: none !important; /* QUAN TRỌNG: Không cản trở việc bấm nút */
-    z-index: 50;
+    /* DÒNG CODE QUAN TRỌNG NHẤT ĐỂ SỬA LỖI */
+    white-space: nowrap; /* Ngăn chặn chữ xuống dòng, ép nó nằm trên 1 hàng ngang */
+    
+    font-weight: bold;
+    color: #ffeb3b; /* Màu vàng lấp lánh */
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Bóng đổ cho rõ chữ */
+    z-index: 60; /* Nằm trên ảnh chạy dọc */
+    pointer-events: none; /* Không cản trở việc bấm nút */
 }
 
 .scrolling-photo {
