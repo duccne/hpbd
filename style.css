@@ -150,32 +150,65 @@ body {
     object-fit: cover;
 }
 
+/* Ô hiển thị mật mã - Hình chữ nhật bo góc nhẹ */
 .dots-4 {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin: 20px 0;
 }
 
 .dot-item {
-    width: 15px;
-    height: 15px;
+    width: 40px; /* Rộng hơn để tạo hình chữ nhật */
+    height: 50px;
     border: 2px solid #ff80ab;
-    border-radius: 50%;
-    transition: all 0.2s ease;
+    border-radius: 12px; /* Bo góc nhẹ */
+    background: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
 }
 
 .dot-item.active {
-    background: #ff80ab; /* Hiện màu hồng khi có số */
-    transform: scale(1.2);
+    background: #fce4ec;
+    border-color: #d81b60;
+    transform: translateY(-5px); /* Hiệu ứng nảy lên khi nhập */
 }
 
-.btn-disabled {
-    background: #fce4ec !important;
-    color: #f06292 !important;
-    cursor: default;
+/* Bàn phím - Hình chữ nhật bo góc */
+.pink-keypad {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px; 
+    margin-top: 20px;
 }
-@keyframes shake {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05) rotate(2deg); }
+
+.pink-keypad button {
+    background: var(--pink-main);
+    color: white; 
+    border: none;
+    padding: 20px; 
+    border-radius: 15px; /* Bo góc hình chữ nhật */
+    font-size: 1.4rem; 
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.pink-keypad button:active { 
+    background: var(--pink-dark); 
+    transform: scale(0.95); 
+}
+
+/* Hiệu ứng chữ chạy không bị dồn hàng dọc */
+.floating-wish {
+    position: absolute;
+    white-space: nowrap; /* Ép chữ đi thẳng, đi luôn */
+    font-weight: bold;
+    color: #ffeb3b;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    z-index: 60;
+    pointer-events: none;
 }
