@@ -19,15 +19,17 @@ function updateDots() {
     dots.forEach((dot, index) => {
         if (index < currentInput.length) {
             dot.classList.add('active');
+            dot.innerText = "❤️"; // Hiện trái tim bên trong ô chữ nhật
         } else {
             dot.classList.remove('active');
+            dot.innerText = ""; // Ô trống
         }
     });
 }
 
 function checkPass() {
     if (currentInput === CORRECT_PASS) {
-        // Phát nhạc ngay lập tức
+        // Phát nhạc ngay lập tức (File nhạc m4a của bạn)
         const music = document.getElementById('bg-music');
         if (music) music.play();
         
@@ -36,12 +38,13 @@ function checkPass() {
         setTimeout(() => {
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('final-screen').classList.remove('hidden');
-            startSurprise(); // Chạy hiệu ứng pháo hoa, chữ chạy, ảnh chạy
+            startSurprise(); 
         }, 1000);
     } else {
-        // Nếu sai: báo lỗi, rung nhẹ và xóa hết
+        // Nếu sai: Báo lỗi và xóa trắng để nhập lại
         alert("Mật mã chưa đúng rồi chị ơi! 😜");
-        clearNum();
+        currentInput = "";
+        updateDots();
     }
 }
 
