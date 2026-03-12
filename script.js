@@ -1,15 +1,17 @@
 // 1. CẤU HÌNH THÔNG TIN (Bạn sửa ở đây)
-const CORRECT_PASS = "1503"; // <-- Sửa mật khẩu 4 số của bạn ở đây
+// Đảm bảo biến này nằm ở đầu file
 let currentInput = "";
+const CORRECT_PASS = "1212"; // Thay bằng mã 4 số của bạn
 
 function addNum(num) {
+    console.log("Đã bấm số:", num); // Kiểm tra trong console xem máy có nhận lệnh không
     if (currentInput.length < 4) {
         currentInput += num;
         updateDots();
         
-        // Nếu đủ 4 số thì tự động kiểm tra luôn
         if (currentInput.length === 4) {
-            setTimeout(checkPass, 300); 
+            // Đợi một chút để người dùng thấy chấm thứ 4 rồi mới kiểm tra
+            setTimeout(checkPass, 200);
         }
     }
 }
@@ -19,10 +21,10 @@ function updateDots() {
     dots.forEach((dot, index) => {
         if (index < currentInput.length) {
             dot.classList.add('active');
-            dot.innerText = "❤️"; // Hiện trái tim bên trong ô chữ nhật
+            dot.innerText = "❤️"; 
         } else {
             dot.classList.remove('active');
-            dot.innerText = ""; // Ô trống
+            dot.innerText = ""; 
         }
     });
 }
