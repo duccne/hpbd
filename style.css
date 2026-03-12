@@ -1,94 +1,110 @@
+/* --- PHÔNG CHỮ VÀ CÀI ĐẶT CHUNG --- */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
-
-:root {
-    --pink-light: #ffc0cb;
-    --pink-main: #ff80ab;
-    --pink-dark: #d81b60;
-    --gold: #ffd700;
-}
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    margin: 0; padding: 0;
-    width: 100vw; height: 100vh;
-    background: var(--pink-light);
-    display: flex; justify-content: center; align-items: center;
-    overflow: hidden; 
+    width: 100vw;
+    height: 100vh;
+    background: #ffc0cb; /* Màu hồng pastel chủ đạo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* --- QUẢN LÝ LỚP (Z-INDEX) --- */
-/* Lớp 10: Màn hình chính
-   Lớp 50: Ảnh chạy dọc, Chữ chạy
-   Lớp 100: Các thành phần tương tác (Hộp quà, Nút bấm)
-*/
+.hidden { display: none !important; }
 
-.hidden { 
-    display: none !important; 
-}
-
-/* Các màn hình chính */
+/* --- QUẢN LÝ CÁC LỚP MÀN HÌNH --- */
 #gift-screen, #auth-screen, #final-screen {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     z-index: 10;
 }
 
 /* --- MÀN HÌNH 1: HỘP QUÀ --- */
 .gift-box {
-    width: 140px; height: 110px;
+    width: 140px;
+    height: 110px;
     background: #ff4d4d;
     position: relative;
     cursor: pointer;
-    z-index: 100; /* Đảm bảo nằm trên cùng để bấm được */
+    z-index: 100;
     animation: shake 1.5s infinite;
 }
 
 .gift-lid {
-    width: 160px; height: 35px;
+    width: 160px;
+    height: 35px;
     background: #ff4d4d;
-    position: absolute; top: -35px; left: -10px;
+    position: absolute;
+    top: -35px;
+    left: -10px;
 }
 
 .gift-bow {
-    position: absolute; top: -55px; left: 50%;
-    transform: translateX(-50%); width: 60px; height: 30px;
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 30px;
 }
 
 .gift-bow::before, .gift-bow::after {
-    content: ''; position: absolute;
-    width: 30px; height: 30px;
-    border: 5px solid var(--gold);
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 5px solid #ffd700;
     border-radius: 50% 50% 0 50%;
     transform: rotate(45deg);
 }
 
 .gift-bow::after {
-    left: 25px; border-radius: 50% 50% 50% 0;
+    left: 25px;
+    border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
 }
 
-/* --- MÀN HÌNH 2: BÀN PHÍM HỒNG --- */
+.hint {
+    margin-top: 20px;
+    color: #d81b60;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* --- MÀN HÌNH 2: THẺ NHẬP MÃ (BÀN PHÍM IPHONE) --- */
 .pink-card {
     background: rgba(255, 255, 255, 0.95);
-    width: 90%; max-width: 340px;
-    padding: 35px 20px;
-    border-radius: 30px;
+    width: 90%;
+    max-width: 340px;
+    padding: 40px 20px;
+    border-radius: 25px; /* Bo góc hình chữ nhật */
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     text-align: center;
-    z-index: 100;
+    position: relative;
+    z-index: 1000; /* Luôn nằm trên cùng để bấm được */
 }
 
 .avatar-container {
-    width: 90px; height: 90px;
-    margin: -75px auto 15px auto;
+    width: 95px;
+    height: 95px;
+    margin: -85px auto 15px auto;
     border-radius: 50%;
     border: 4px solid white;
     overflow: hidden;
@@ -99,58 +115,12 @@ body {
 
 .title-love {
     font-family: 'Dancing Script', cursive;
-    color: var(--pink-dark); margin: 10px 0;
+    color: #d81b60;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
 }
 
-.heart-pass {
-    background: #fff;
-    padding: 10px; border-radius: 15px;
-    margin: 15px 0; font-size: 1.2rem;
-    min-height: 45px;
-}
-
-.pink-keypad {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 12px; margin-top: 20px;
-}
-
-.pink-keypad button {
-    background: var(--pink-main);
-    color: white; border: none;
-    padding: 18px; border-radius: 15px;
-    font-size: 1.3rem; font-weight: 600;
-    cursor: pointer;
-}
-
-.pink-keypad button:active { background: var(--pink-dark); transform: scale(0.95); }
-
-/* --- MÀN HÌNH 3: KẾT QUẢ --- */
-.main-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.5rem; color: var(--pink-dark);
-    z-index: 100; text-align: center;
-}
-
-/* --- HIỆU ỨNG BAY (Z-INDEX THẤP HƠN NÚT BẤM) --- */
-.flower, .heart-fly, .scrolling-photo, .floating-wish {
-    position: absolute;
-    /* DÒNG CODE QUAN TRỌNG NHẤT ĐỂ SỬA LỖI */
-    white-space: nowrap; /* Ngăn chặn chữ xuống dòng, ép nó nằm trên 1 hàng ngang */
-    
-    font-weight: bold;
-    color: #ffeb3b; /* Màu vàng lấp lánh */
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Bóng đổ cho rõ chữ */
-    z-index: 60; /* Nằm trên ảnh chạy dọc */
-    pointer-events: none; /* Không cản trở việc bấm nút */
-}
-
-.scrolling-photo {
-    width: 100px; height: 100px;
-    border-radius: 50%; border: 3px solid white;
-    object-fit: cover;
-}
-
-/* Ô hiển thị mật mã - Hình chữ nhật bo góc nhẹ */
+/* 4 Ô NHẬP MÃ HÌNH CHỮ NHẬT */
 .dots-4 {
     display: flex;
     justify-content: center;
@@ -159,63 +129,87 @@ body {
 }
 
 .dot-item {
-    width: 40px; /* Rộng hơn để tạo hình chữ nhật */
-    height: 50px;
+    width: 45px;
+    height: 55px;
     border: 2px solid #ff80ab;
-    border-radius: 12px; /* Bo góc nhẹ */
-    background: transparent;
-    transition: all 0.3s ease;
+    border-radius: 12px; /* Chữ nhật bo góc */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    background: white;
+    transition: all 0.3s ease;
 }
 
 .dot-item.active {
     background: #fce4ec;
     border-color: #d81b60;
-    transform: translateY(-5px); /* Hiệu ứng nảy lên khi nhập */
+    transform: translateY(-3px);
 }
 
-/* Đảm bảo thẻ chứa bàn phím có quyền ưu tiên cao nhất */
-.pink-card {
-    position: relative;
-    z-index: 1000; /* Nằm trên tất cả các hiệu ứng bay */
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 30px 15px;
-    pointer-events: auto; /* Cho phép tương tác */
+/* BÀN PHÍM HÌNH CHỮ NHẬT */
+.pink-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 15px;
 }
 
-/* Các nút bấm hình chữ nhật bo góc */
 .pink-keypad button {
-    position: relative;
-    z-index: 1001;
-    pointer-events: auto; /* Đảm bảo bấm được */
     background: #ff80ab;
     color: white;
     border: none;
-    padding: 20px;
-    border-radius: 12px; /* Hình chữ nhật bo góc */
+    padding: 20px 0;
+    border-radius: 12px; /* Bo góc hình chữ nhật */
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
-    touch-action: manipulation; /* Tối ưu cho cảm ứng điện thoại */
+    z-index: 1100;
+    position: relative;
+    transition: background 0.2s, transform 0.1s;
 }
 
-/* Vô hiệu hóa tương tác của các hiệu ứng để không chặn nút bấm */
-.heart-fly, .floating-wish, .scrolling-photo, .flower {
-    pointer-events: none !important;
-    z-index: 1;
+.pink-keypad button:active {
+    background: #d81b60;
+    transform: scale(0.92);
 }
 
-/* Hiệu ứng chữ chạy không bị dồn hàng dọc */
-.floating-wish {
+.btn-c { background: #f48fb1 !important; }
+.btn-empty { background: #fce4ec !important; color: #f06292 !important; cursor: default !important; }
+
+/* --- HIỆU ỨNG TRANG TRÍ (Z-INDEX THẤP & KHÔNG CHẶN BẤM) --- */
+.heart-fly, .flower, .scrolling-photo, .floating-wish {
     position: absolute;
-    white-space: nowrap; /* Ép chữ đi thẳng, đi luôn */
+    pointer-events: none !important; /* Quan trọng: Cho phép bấm xuyên qua */
+    z-index: 5;
+}
+
+.floating-wish {
+    white-space: nowrap; /* Sửa lỗi chữ bị dồn hàng dọc */
     font-weight: bold;
     color: #ffeb3b;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-    z-index: 60;
-    pointer-events: none;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    font-size: 1.1rem;
+}
+
+.scrolling-photo {
+    border: 3px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    object-fit: cover;
+}
+
+/* --- MÀN HÌNH CUỐI --- */
+.main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: #d81b60;
+    text-align: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+/* HIỆU ỨNG RUNG HỘP QUÀ */
+@keyframes shake {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05) rotate(2deg); }
 }
