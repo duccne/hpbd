@@ -29,27 +29,33 @@
             
             <h2 class="title-love">Nhập mật mã để mở quà nào 💕</h2>
             
-            <div class="pass-display">
-                <div class="heart-pass">....</div>
-            </div>
-            
-            <p class="hint-text">Gợi ý: Ngày sinh nhật em 🤫</p>
+  <div class="pass-display">
+    <div class="dots-4">
+        <div class="dot-item"></div>
+        <div class="dot-item"></div>
+        <div class="dot-item"></div>
+        <div class="dot-item"></div>
+    </div>
+</div>
 
-            <div class="pink-keypad">
-                <button onclick="addNum('1')">1</button>
-                <button onclick="addNum('2')">2</button>
-                <button onclick="addNum('3')">3</button>
-                <button onclick="addNum('4')">4</button>
-                <button onclick="addNum('5')">5</button>
-                <button onclick="addNum('6')">6</button>
-                <button onclick="addNum('7')">7</button>
-                <button onclick="addNum('8')">8</button>
-                <button onclick="addNum('9')">9</button>
-                
-                <button onclick="clearNum()" class="btn-c">C</button>
-                <button onclick="addNum('0')">0</button>
-                <button onclick="checkPass()" class="btn-ok">OK</button>
-            </div>
+<div class="pink-keypad">
+    <button onclick="addNum('1')">1</button>
+    <button onclick="addNum('2')">2</button>
+    <button onclick="addNum('3')">3</button>
+    <button onclick="addNum('4')">4</button>
+    <button onclick="addNum('5')">5</button>
+    <button onclick="addNum('6')">6</button>
+    <button onclick="addNum('7')">7</button>
+    <button onclick="addNum('8')">8</button>
+    <button onclick="addNum('9')">9</button>
+    <button onclick="clearNum()" class="btn-c">C</button>
+    <button onclick="addNum('0')">0</button>
+    <button class="btn-disabled" disabled>❤️</button>
+</div>
+
+<audio id="bg-music" loop>
+    <source src="20260311_212016989.m4a" type="audio/mp4">
+</audio>
             
             <p id="status-text" class="hidden">Đã xác nhận! Loading Tình Yêu... ❤️</p>
         </div>
