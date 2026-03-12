@@ -1,12 +1,54 @@
 // 1. CẤU HÌNH THÔNG TIN (Bạn sửa ở đây)
-const CORRECT_PASS = "1503"; // Mật mã để mở quà
-const PHOTO_URLS = [
-    "anh1.jpg", 
-    "anh2.jpg", 
-    "anh3.jpg"
-]; // Thay bằng danh sách link ảnh của chị yêu
-
+const CORRECT_PASS = "1503"; // <-- Sửa mật khẩu 4 số của bạn ở đây
 let currentInput = "";
+
+function addNum(num) {
+    if (currentInput.length < 4) {
+        currentInput += num;
+        updateDots();
+        
+        // Nếu đủ 4 số thì tự động kiểm tra luôn
+        if (currentInput.length === 4) {
+            setTimeout(checkPass, 300); 
+        }
+    }
+}
+
+function updateDots() {
+    const dots = document.querySelectorAll('.dot-item');
+    dots.forEach((dot, index) => {
+        if (index < currentInput.length) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function checkPass() {
+    if (currentInput === CORRECT_PASS) {
+        // Phát nhạc ngay lập tức
+        const music = document.getElementById('bg-music');
+        if (music) music.play();
+        
+        document.getElementById('status-text').style.display = 'block';
+        
+        setTimeout(() => {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('final-screen').classList.remove('hidden');
+            startSurprise(); // Chạy hiệu ứng pháo hoa, chữ chạy, ảnh chạy
+        }, 1000);
+    } else {
+        // Nếu sai: báo lỗi, rung nhẹ và xóa hết
+        alert("Mật mã chưa đúng rồi chị ơi! 😜");
+        clearNum();
+    }
+}
+
+function clearNum() {
+    currentInput = "";
+    updateDots();
+}
 
 // 2. CHUYỂN MÀN HÌNH
 function showAuth() {
