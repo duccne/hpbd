@@ -2,8 +2,37 @@ var board = null;
 var game = new Chess();
 var $status = $('#status');
 
-// Khởi tạo AI (Stockfish)
-var stockfish = new Worker('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.0/stockfish.js');
+// --- THỦ THUẬT LÁCH LUẬT BẢO MẬT TRÌNH DUYỆT ĐỂ TẢI AI ---
+var blob = new Blob([
+    "importScripts('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.0/stockfish.js');"
+], { type: 'application/javascript' });
+var stockfish = new Worker(URL.createObjectURL(blob));
+// --------------------------------------------------------
+
+// Hàm in lịch sử nước đi ra bảng
+function renderMoveHistory() {
+    var history = game.history();
+    var $historyList = $('#move-history');
+    $historyList.empty(); 
+    
+    for (var i = 0; i < history.length; i += 2) {
+        var moveNumber = (i / 2) + 1;
+        var whiteMove = history[i];
+        var blackMove = history[i + 1] ? history[i + 1] : '';
+        
+        var li = `<li>
+            <span class="move-num">${moveNumber}.</span>
+            <span class="white-move">${whiteMove}</span>
+            <span class="black-move">${blackMove}</span>
+        </li>`;
+        $historyList.append(li);
+    }
+    
+    var historyPanel = document.getElementById('move-history');
+    if(historyPanel) {
+        historyPanel.scrollTop = historyPanel.scrollHeight;
+    }
+}
 
 stockfish.onmessage = function (event) {
     var line = event.data;
@@ -13,6 +42,7 @@ stockfish.onmessage = function (event) {
             game.move({ from: match[1], to: match[2], promotion: match[3] || 'q' });
             board.position(game.fen());
             updateStatus();
+            renderMoveHistory(); 
         }
     }
 };
@@ -32,6 +62,8 @@ function onDrop (source, target) {
     if (move === null) return 'snapback';
 
     updateStatus();
+    renderMoveHistory(); 
+    
     window.setTimeout(makeBestMove, 250);
 }
 
@@ -52,7 +84,6 @@ function updateStatus () {
     $status.text(statusHTML);
 }
 
-// Cấu hình bàn cờ
 var config = {
     draggable: true,
     position: 'start',
@@ -62,16 +93,24 @@ var config = {
     pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
 };
 
-// Đợi DOM load xong mới chạy (Best practice khi tách file JS)
 $(document).ready(function() {
     board = Chessboard('board', config);
     updateStatus();
+    renderMoveHistory();
 
-    // Các sự kiện nút bấm
     $('#reset-btn').on('click', function() {
         game.reset();
         board.start();
         updateStatus();
+        renderMoveHistory();
+    });
+
+    $('#undo-btn').on('click', function() {
+        game.undo(); 
+        game.undo(); 
+        board.position(game.fen()); 
+        updateStatus();
+        renderMoveHistory();
     });
 
     $('#toggle-3d').on('click', function() {
